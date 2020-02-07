@@ -1,0 +1,192 @@
+#+OPTIONS: toc:nil num:nil
+#+TITLE: LAB 1 - REPORT
+#+AUTHOR: Justin Kaipada - 100590167
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt,letterpaper]
+#+LATEX_HEADER: \usepackage[letterpaper,margin=1.3in]{geometry}
+#+LATEX_HEADER: \usepackage{plex-mono}
+#+LATEX_HEADER: \usepackage[sfdefault]{plex-sans}
+#+LATEX_HEADER: \linespread{1.5} % Change line spacing
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \usepackage{soul}
+#+LATEX_HEADER: \usepackage{helvet}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{inconsolata}
+#+LATEX_HEADER: \usepackage{xcolor-solarized}
+#+LATEX_HEADER: \definecolor{foreground}{RGB}{184, 83, 83} % For verbatim
+#+LATEX_HEADER: \definecolor{background}{RGB}{255, 231, 231} % For verbatim
+#+LATEX_HEADER: \let\OldTexttt\texttt
+#+LATEX_HEADER: \renewcommand{\texttt}[1]{\OldTexttt{\footnotesize\colorbox{background}{\textcolor{foreground}{#1}}}}
+#+LATEX_HEADER: \newenvironment{helvetica}{\fontfamily{phv}\selectfont}{\par}
+#+LATEX_HEADER: \usepackage{hyperref} % Make the hyper-links prettier
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER: colorlinks=true,
+#+LATEX_HEADER: linkcolor=blue!70!white,
+#+LATEX_HEADER: urlcolor=blue!95!black
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \setlist[1]{itemsep=5pt}
+#+LATEX_HEADER: \lstdefinelanguage{cpp}{
+#+LATEX_HEADER: language=C++,
+#+LATEX_HEADER: morekeywords={cerr,exit,string},
+#+LATEX_HEADER: deletekeywords={...},
+#+LATEX_HEADER: escapeinside={\%*}{*)},
+#+LATEX_HEADER: showspaces=false,
+#+LATEX_HEADER: showstringspaces=false,
+#+LATEX_HEADER: showtabs=false,
+#+LATEX_HEADER: stepnumber=1,
+#+LATEX_HEADER: tabsize=4,
+#+LATEX_HEADER: breakatwhitespace=false,
+#+LATEX_HEADER: breaklines=true,
+#+LATEX_HEADER: backgroundcolor=\color{solarized-base3},
+#+LATEX_HEADER: basicstyle=\scriptsize\ttfamily\color{solarized-base0},
+#+LATEX_HEADER: commentstyle=\itshape\color{solarized-base01},
+#+LATEX_HEADER: keywordstyle=\color{solarized-green},
+#+LATEX_HEADER: identifierstyle=\color{solarized-blue},
+#+LATEX_HEADER: stringstyle=\color{solarized-cyan},
+#+LATEX_HEADER: moredelim = *[l][\color{solarized-orange}]{\#},
+#+LATEX_HEADER: moredelim = **[s][\color{solarized-cyan}]{<}{>},
+#+LATEX_HEADER: rulecolor=\color{black},
+#+LATEX_HEADER: literate={{\%d}}{{\textcolor{solarized-red}{\%d}}}2
+#+LATEX_HEADER:           {{\%2d}}{{\textcolor{solarized-red}{\%2d}}}3
+#+LATEX_HEADER:           {{\\n}}{{\textcolor{solarized-red}{\textbackslash{}n}}}2,
+#+LATEX_HEADER: }
+
+#+begin_export latex
+\newpage % Go to the next page after title page
+#+end_export
+
+* Task #1: Encryption using different ciphers and modes
+#+begin_src cpp
+openssl enc -aes-128-cbc -e -in plain_text.txt -out cipher1.bin \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -aes-128-cfb -e -in plain_text.txt -out cipher2.bin \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -aes-192-gcm -e -in plain_text.txt -out cipher3.bin \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -des-ede3-cfb1 -e -in plain_text.txt -out cipher4.bin \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+#+end_src
+
+In the above 4 commands used, the 3rd one failed saying =enc: AEAD ciphers not supported=. This was
+a simple task that introduced us to the basics of using openssl to encrypt files.
+
+* Task #2: Encryption Mode - ECB vs CBC
+
+After encrypting the file using an ecb encryption algorithm and correcting the header information,
+the image is somewhat representative of the original image, at least I can tell there is an outline
+of the original image preserved in the encrypted file. The encrypted file can be viewed in
+=pic_ecb.bmp=.
+
+After modifying the file header information the file produced as a result of the ecb encryption, it
+didn't look anything like the original picture. The file =pic_cbc.bmp= shoes the encrypted image
+with corrected header and as you can see the whole image is disfigured.
+
+[[~/Desktop/Screenshot from 2020-01-27 10-58-20.png]]
+
+* Task #3: Encryption Mode - Corrupted Cipher Text
+
+Commands used for encryption
+#+begin_src sh
+openssl enc -aes-128-ecb -e -in plain_text.txt -out task3ecb.bin \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -aes-128-cbc -e -in plain_text.txt -out task3cbc.bin \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -aes-128-cfb -e -in plain_text.txt -out task3cfb.bin \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -aes-128-ofb -e -in plain_text.txt -out task3ofb.bin \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+#+end_src
+
+#+RESULTS:
+
+Before deciphering the files I say ecb will the be most affected by corruption and ofb will be least
+affected, because ofb uses XOR operation on the bits so messing with one byte should only affect 1
+byte when deciphering.
+
+Commands used for decryption
+#+begin_src sh
+openssl enc -aes-128-ecb -d -in task3ecb_c.bin -out plain_text_ecb.txt \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -aes-128-cbc -d -in task3cbc_c.bin -out plain_text_cbc.txt \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -aes-128-cfb -d -in task3cfb_c.bin -out plain_text_cfb.txt \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+
+openssl enc -aes-128-ofb -d -in task3ofb_c.bin -out plain_text_ofb.txt \
+-K 000102030405060708090a0b0c0d0e0f \
+-iv 000102030405060708090a0b0c0d0e0f
+#+end_src
+
+#+RESULTS:
+
+After generating the encrypted file I corrupted them by replacing a random byte with a random
+character using the hex editor. It seems like after deciphering the corrupted files the damage done
+is more or less the same.
+
+*CBC* This algorithm XOR’s a raw text against an IV then encrypts it and propagates that encrypted
+cyphertext to be the next block’s IV. So if a byte if corrupted the data following that will most
+likely get lost.
+[[~/Desktop/cbc.png]]
+
+*ECB* This algorithm encrypts each block of plaintext to a corresponding ciphertext block, so if
+byte is changed only that byte will get affected when deciphering back.
+[[~/Desktop/ecb.png]]
+
+*CFB* This algorithm is like CBC but is also self-synchronizing. It is able to recover the data if
+some of the encrypted text is lost or messed up. There may be a lot of data after the corrupted byte
+affected, the algorithm will try to self correct.
+[[~/Desktop/cfb.png]]
+
+*OFB* This algorithm should be resistant to corruption of encrypted data. Only the bits that
+are modified in error will be lost. Neighbouring bits should be unaffected.
+[[~/Desktop/ofb.png]]
+
+The implication is that different encryption methods must be chosen based on use cases and OFB seems
+to be an algorithm which is least affected by corrupted bytes, because the neighbouring bits of the
+corrupted bit is unaffected.
+* Task #4: Pseudo random number generation
+
+In this task we learned how to generate good random numbers, strong enough for security standards.
+
+After running the command to see kernels entropy
+[[~/Desktop/Screenshot from 2020-01-27 11-44-41.png]]
+
+After moving the cursor and typing some stuff the entropy number seems to be changing every time
+[[~/Desktop/Screenshot from 2020-01-27 11-49-56.png]]
+
+For next task we explore =/dev/random=. Running =head -c 16 /dev/random | hexdump= several times we
+can see it generates 16 bytes of sudo random numbers very quickly.
+
+[[~/Desktop/Screenshot from 2020-01-27 11-52-16.png]]
+
+Once it gets blocked we can unblock it providing input to the system. Which is by moving the mouse
+and typing anything into the keyboard.
+
+Using =/dev/urandom= to generate unblocking pseudo random numbers 
+
+#+begin_src cpp
+head -c 1600 /dev/urandom | hexdump
+#+end_src
+
+Ran this command a lot of times and it never blocked.
+
