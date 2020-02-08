@@ -11,7 +11,7 @@
 #+LATEX_HEADER: \usepackage{soul}
 #+LATEX_HEADER: \usepackage{helvet}
 #+LATEX_HEADER: \usepackage{listings}
-#+LATEX_HEADER: \usepackage{inconsolata}
+#+LATEX_HEADER: \setlength{\parindent}{0pt} % Change the paragraphs indent to 0, disabling it
 #+LATEX_HEADER: \usepackage{xcolor-solarized}
 #+LATEX_HEADER: \definecolor{foreground}{RGB}{184, 83, 83} % For verbatim
 #+LATEX_HEADER: \definecolor{background}{RGB}{255, 231, 231} % For verbatim
@@ -56,10 +56,6 @@
 \newpage % Go to the next page after title page
 #+end_export
 
-#+begin_export latex
-{\parindent0pt % disables indentation for all the text between { and }
-#+end_export
-
 * Task #1: Experiencing Capabilities
 
 By default ping was a =Set-UID= program
@@ -85,6 +81,7 @@ PING www.google.com (172.217.1.4) 56(84) bytes of data.
 64 bytes from yyz10s14-in-f4.1e100.net (172.217.1.4): icmp_seq=3 ttl=54 time=12.8 ms
 64 bytes from yyz10s14-in-f4.1e100.net (172.217.1.4): icmp_seq=4 ttl=54 time=7.64 ms
 64 bytes from yyz10s14-in-f4.1e100.net (172.217.1.4): icmp_seq=5 ttl=54 time=12.4 ms
+^C
 --- www.google.com ping statistics ---
 5 packets transmitted, 5 received, 0% packet loss, time 4004ms
 rtt min/avg/max/mdev = 7.648/10.612/12.819/1.875 ms
@@ -97,32 +94,28 @@ $ ping google.com
 ping: socket: Operation not permitted
 #+end_src
 
-After giving =cap_net_raw= capability
-#+begin_src bash
-justin@justin-Precision-3520 11:37:01 ~
-$ ping google.com
-PING google.com (172.217.1.174) 56(84) bytes of data.
-64 bytes from yyz10s04-in-f14.1e100.net (172.217.1.174): icmp_seq=1 ttl=54 time=6.25 ms
-64 bytes from yyz10s04-in-f14.1e100.net (172.217.1.174): icmp_seq=2 ttl=54 time=6.04 ms
-64 bytes from yyz10s04-in-f14.1e100.net (172.217.1.174): icmp_seq=3 ttl=54 time=6.54 ms
---- google.com ping statistics ---
-3 packets transmitted, 3 received, 0% packet loss, time 2003ms
-rtt min/avg/max/mdev = 6.049/6.283/6.546/0.223 ms
+To fix ping to work again, I used setcap to give it the capability to open new ports
+#+begin_src sh
+setcap cap_net_raw+ep /bin/ping
 #+end_src
 
-#+begin_export latex
-}% restore indentation
-#+end_export
-
 ** Question 1
+First I stripped =passwd= all of its coarse permissions
+#+begin_src bash
+chmod u-s /usr/bin/passwd 
+#+end_src
 
-Command to give passwd the needed capabilities
+Then fine tuned its capabilities using the setcap command
 #+begin_src bash
 setcap cap_fowner,cap_chown,cap_dac_override+ep /usr/bin/passwd
 #+end_src
 
-** Question 2
+One of the observations made here was that when giving multiple
+capabilities using the setcap command the capabilities need to be
+mentioned at the same time or they will get overwritten. Adding
+capabilities one at time does not seem to be possible.
 
+** Question 2
 *** capdacreadsearch
 *** capdacoverride
 *** capchown
