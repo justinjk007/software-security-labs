@@ -116,7 +116,7 @@ rtt min/avg/max/mdev = 6.049/6.283/6.546/0.223 ms
 
 ** Question 1
 
-#+CAPTION: Command to give passwd the needed capabilities
+Command to give passwd the needed capabilities
 #+begin_src bash
 setcap cap_fowner,cap_chown,cap_dac_override+ep /usr/bin/passwd
 #+end_src
