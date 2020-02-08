@@ -56,6 +56,10 @@
 \newpage % Go to the next page after title page
 #+end_export
 
+#+begin_export latex
+{\parindent0pt % disables indentation for all the text between { and }
+#+end_export
+
 * Task #1: Experiencing Capabilities
 
 By default ping was a *Set-UID* program
@@ -107,6 +111,10 @@ PING google.com (172.217.1.174) 56(84) bytes of data.
 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
 rtt min/avg/max/mdev = 6.049/6.283/6.546/0.223 ms
 #+end_src
+
+#+begin_export latex
+}% restore indentation
+#+end_export
 
 ** Question 1
 

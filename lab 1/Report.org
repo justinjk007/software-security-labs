@@ -89,7 +89,7 @@ After modifying the file header information the file produced as a result of the
 didn't look anything like the original picture. The file =pic_cbc.bmp= shoes the encrypted image
 with corrected header and as you can see the whole image is disfigured.
 
-[[~/Desktop/Screenshot from 2020-01-27 10-58-20.png]]
+[[./img/Screenshot from 2020-01-27 10-58-20.png]]
 
 * Task #3: Encryption Mode - Corrupted Cipher Text
 
@@ -146,20 +146,20 @@ is more or less the same.
 *CBC* This algorithm XOR’s a raw text against an IV then encrypts it and propagates that encrypted
 cyphertext to be the next block’s IV. So if a byte if corrupted the data following that will most
 likely get lost.
-[[~/Desktop/cbc.png]]
+[[./img/cbc.png]]
 
 *ECB* This algorithm encrypts each block of plaintext to a corresponding ciphertext block, so if
 byte is changed only that byte will get affected when deciphering back.
-[[~/Desktop/ecb.png]]
+[[./img/ecb.png]]
 
 *CFB* This algorithm is like CBC but is also self-synchronizing. It is able to recover the data if
 some of the encrypted text is lost or messed up. There may be a lot of data after the corrupted byte
 affected, the algorithm will try to self correct.
-[[~/Desktop/cfb.png]]
+[[./img/cfb.png]]
 
 *OFB* This algorithm should be resistant to corruption of encrypted data. Only the bits that
 are modified in error will be lost. Neighbouring bits should be unaffected.
-[[~/Desktop/ofb.png]]
+[[./img/ofb.png]]
 
 The implication is that different encryption methods must be chosen based on use cases and OFB seems
 to be an algorithm which is least affected by corrupted bytes, because the neighbouring bits of the
@@ -169,15 +169,15 @@ corrupted bit is unaffected.
 In this task we learned how to generate good random numbers, strong enough for security standards.
 
 After running the command to see kernels entropy
-[[~/Desktop/Screenshot from 2020-01-27 11-44-41.png]]
+[[./img/Screenshot from 2020-01-27 11-44-41.png]]
 
 After moving the cursor and typing some stuff the entropy number seems to be changing every time
-[[~/Desktop/Screenshot from 2020-01-27 11-49-56.png]]
+[[./img/Screenshot from 2020-01-27 11-49-56.png]]
 
 For next task we explore =/dev/random=. Running =head -c 16 /dev/random | hexdump= several times we
 can see it generates 16 bytes of sudo random numbers very quickly.
 
-[[~/Desktop/Screenshot from 2020-01-27 11-52-16.png]]
+[[./img/Screenshot from 2020-01-27 11-52-16.png]]
 
 Once it gets blocked we can unblock it providing input to the system. Which is by moving the mouse
 and typing anything into the keyboard.
