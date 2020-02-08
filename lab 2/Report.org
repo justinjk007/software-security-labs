@@ -26,30 +26,30 @@
 #+LATEX_HEADER: }
 #+LATEX_HEADER: \usepackage{enumitem}
 #+LATEX_HEADER: \setlist[1]{itemsep=5pt}
-#+LATEX_HEADER: \lstdefinelanguage{cpp}{
-#+LATEX_HEADER: language=C++,
-#+LATEX_HEADER: morekeywords={cerr,exit,string},
-#+LATEX_HEADER: deletekeywords={...},
-#+LATEX_HEADER: escapeinside={\%*}{*)},
-#+LATEX_HEADER: showspaces=false,
-#+LATEX_HEADER: showstringspaces=false,
-#+LATEX_HEADER: showtabs=false,
-#+LATEX_HEADER: stepnumber=1,
-#+LATEX_HEADER: tabsize=4,
-#+LATEX_HEADER: breakatwhitespace=false,
-#+LATEX_HEADER: breaklines=true,
-#+LATEX_HEADER: backgroundcolor=\color{solarized-base3},
-#+LATEX_HEADER: basicstyle=\scriptsize\ttfamily\color{solarized-base0},
-#+LATEX_HEADER: commentstyle=\itshape\color{solarized-base01},
-#+LATEX_HEADER: keywordstyle=\color{solarized-green},
-#+LATEX_HEADER: identifierstyle=\color{solarized-blue},
-#+LATEX_HEADER: stringstyle=\color{solarized-cyan},
-#+LATEX_HEADER: moredelim = *[l][\color{solarized-orange}]{\#},
-#+LATEX_HEADER: moredelim = **[s][\color{solarized-cyan}]{<}{>},
-#+LATEX_HEADER: rulecolor=\color{black},
-#+LATEX_HEADER: literate={{\%d}}{{\textcolor{solarized-red}{\%d}}}2
-#+LATEX_HEADER:           {{\%2d}}{{\textcolor{solarized-red}{\%2d}}}3
-#+LATEX_HEADER:           {{\\n}}{{\textcolor{solarized-red}{\textbackslash{}n}}}2,
+#+LATEX_HEADER: \lstset{ 
+#+LATEX_HEADER:  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+#+LATEX_HEADER:  basicstyle=\scriptsize,          % the size of the fonts that are used for the code
+#+LATEX_HEADER:  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+#+LATEX_HEADER:  breaklines=true,                 % sets automatic line breaking
+#+LATEX_HEADER:  captionpos=b,                    % sets the caption-position to bottom
+#+LATEX_HEADER:  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+#+LATEX_HEADER:  firstnumber=1000,                % start line enumeration with line 1000
+#+LATEX_HEADER:  frame=single,	                  % adds a frame around the code
+#+LATEX_HEADER:  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+#+LATEX_HEADER:  keywordstyle=\color{blue},       % keyword style
+#+LATEX_HEADER:  language=bash,                   % the language of the code
+#+LATEX_HEADER:  morekeywords={ls,ping},          % if you want to add more keywords to the set
+#+LATEX_HEADER:  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+#+LATEX_HEADER:  numbersep=5pt,                   % how far the line-numbers are from the code
+#+LATEX_HEADER:  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+#+LATEX_HEADER:  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+#+LATEX_HEADER:  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+#+LATEX_HEADER:  showstringspaces=false,          % underline spaces within strings only
+#+LATEX_HEADER:  showtabs=false,                  % show tabs within strings adding particular underscores
+#+LATEX_HEADER:  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+#+LATEX_HEADER:  stringstyle=\color{black},     % string literal style
+#+LATEX_HEADER:  tabsize=2,	                  % sets default tabsize to 2 spaces
+#+LATEX_HEADER:  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 #+LATEX_HEADER: }
 
 #+begin_export latex
@@ -62,21 +62,21 @@
 
 * Task #1: Experiencing Capabilities
 
-By default ping was a *Set-UID* program
-#+begin_src cpp
+By default ping was a =Set-UID= program
+#+begin_src bash
 justin@justin-Precision-3520 11:22:57 ~
 $ ls -l /bin/ping
 -rwsr-xr-x 1 root root 64424 Jun 28  2019 /bin/ping
 #+end_src
 
 After changing
-#+begin_src cpp
+#+begin_src bash
 root@justin-Precision-3520:/home/justin# ls -l /bin/ping
 -rwxr-xr-x 1 root root 64424 Jun 28  2019 /bin/ping
 #+end_src
 
 Before changing ping
-#+begin_src cpp
+#+begin_src bash
 justin@justin-Precision-3520 11:22:45 ~
 $ ping www.google.com
 PING www.google.com (172.217.1.4) 56(84) bytes of data.
@@ -85,28 +85,26 @@ PING www.google.com (172.217.1.4) 56(84) bytes of data.
 64 bytes from yyz10s14-in-f4.1e100.net (172.217.1.4): icmp_seq=3 ttl=54 time=12.8 ms
 64 bytes from yyz10s14-in-f4.1e100.net (172.217.1.4): icmp_seq=4 ttl=54 time=7.64 ms
 64 bytes from yyz10s14-in-f4.1e100.net (172.217.1.4): icmp_seq=5 ttl=54 time=12.4 ms
-^C
 --- www.google.com ping statistics ---
 5 packets transmitted, 5 received, 0% packet loss, time 4004ms
 rtt min/avg/max/mdev = 7.648/10.612/12.819/1.875 ms
 #+end_src
 
-After changing ping to *non-Set-UID* program
-#+begin_src cpp
+After changing ping to =non-Set-UID= program
+#+begin_src bash
 justin@justin-Precision-3520 11:35:52 ~
 $ ping google.com
 ping: socket: Operation not permitted
 #+end_src
 
 After giving =cap_net_raw= capability
-#+begin_src sh
+#+begin_src bash
 justin@justin-Precision-3520 11:37:01 ~
 $ ping google.com
 PING google.com (172.217.1.174) 56(84) bytes of data.
 64 bytes from yyz10s04-in-f14.1e100.net (172.217.1.174): icmp_seq=1 ttl=54 time=6.25 ms
 64 bytes from yyz10s04-in-f14.1e100.net (172.217.1.174): icmp_seq=2 ttl=54 time=6.04 ms
 64 bytes from yyz10s04-in-f14.1e100.net (172.217.1.174): icmp_seq=3 ttl=54 time=6.54 ms
-^C
 --- google.com ping statistics ---
 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
 rtt min/avg/max/mdev = 6.049/6.283/6.546/0.223 ms
@@ -118,7 +116,8 @@ rtt min/avg/max/mdev = 6.049/6.283/6.546/0.223 ms
 
 ** Question 1
 
-#+begin_src cpp
+#+CAPTION: Command to give passwd the needed capabilities
+#+begin_src bash
 setcap cap_fowner,cap_chown,cap_dac_override+ep /usr/bin/passwd
 #+end_src
 
