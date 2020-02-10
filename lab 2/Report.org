@@ -116,12 +116,15 @@ mentioned at the same time or they will get overwritten. Adding
 capabilities one at time does not seem to be possible.
 
 ** Question 2
-*** capdacreadsearch
-*** capdacoverride
-*** capchown
-*** capsetuid
-*** capkill
-*** capnetraw
+*** cap_dac_read_search
+The main reason to give this capability is to enable a program to bypass file read permission check,
+and bypass read and execution permissions for directories.
+
+*** cap_dac_override
+*** cap_chown
+*** cap_setuid
+*** cap_kill
+*** cap_net_raw
 * Task #2: Adjusting Privileges
 
 After building =use_cap= gave it the required capabilities
