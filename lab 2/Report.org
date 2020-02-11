@@ -176,8 +176,53 @@ You can see how =ping= won't work without this permission in the following examp
 [[./img/example3.png]]
 
 * Task #2: Adjusting Privileges
-
-After building =use_cap= gave it the required capabilities
-#+begin_src sh
-setcap cap_dac_read_search+ep ./use_cap
+** Question 3
+After building =use_cap= running it produced the following output
+#+begin_src bash
+$ ./use_cap 
+(a) Open failed
+(b) Open failed
 #+end_src
+
+Gave it the required capabilities like this
+#+begin_src sh
+sudo setcap cap_dac_read_search+ep ./use_cap
+#+end_src
+
+Running again after giving =cap_dac_read_search= capability
+#+begin_src sh
+$ ./use_cap 
+(b) Open failed
+(d) Open failed
+(e) Open failed
+#+end_src
+
+Before giving the capability *a* and *b* failed because =/etc/shadow= is owned by root and requires more
+privileges to be opened, then the program exited because enabling =CAP_DAC_READ_SEARCH= failed.
+
+After giving the capability, *a* passed because now the process can override permissions. Then
+=cap_disable(CAP_DAC_READ_SEARCH)= was called. So when *b* tried to open the file again privileges
+were not enough. Then before *c* =cap_enable(CAP_DAC_READ_SEARCH)= was called which enabled the
+capability again, so *c* passed. Then the function call to drop the capability was called. So after
+that *d* and *e* failed because once dropped they can't be enabled back again.
+** Question 4
+To dynamically adjust access control on linux we can use the =chmod= command
+with which we can specify if a file should be readable, writable and executable
+by the user, people in the user group and all the people on the system.
+
+Most of the time we don't need fine adjustments to file access. So using =chmod=
+commands are easier and more convenient than setting specific capabilities.
+** Question 5
+If the capability was just disabled, it can be enabled at any time, so if the
+attacker gained access to the program he can use this capability.
+
+If the capability was deleted, it cannot be enabled anymore, so if the attacker
+gained access to the program he still can't enable and use this capability.
+** Question 6
+If the capability was just disabled, it can be enabled at any time, so if the
+attacker gained access to the program he can use this capability.
+
+When using race condition attack, if the attacker manages to stop the program
+from deleting the capability he can use it, but if he gained access to the
+program after deletion he still can't enable and use this capability.
+
