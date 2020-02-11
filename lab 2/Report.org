@@ -116,15 +116,65 @@ mentioned at the same time or they will get overwritten. Adding
 capabilities one at time does not seem to be possible.
 
 ** Question 2
-*** cap_dac_read_search
+*** 1. =cap_dac_read_search=
 The main reason to give this capability is to enable a program to bypass file read permission check,
 and bypass read and execution permissions for directories.
 
-*** cap_dac_override
-*** cap_chown
-*** cap_setuid
-*** cap_kill
-*** cap_net_raw
+To demonstrate the usage, I am trying to open a unreadable txt file with =cat= utility after giving
+it this capability.
+
+[[./img/example1.png]]
+
+*** 2. =cap_dac_override=
+This capability gives a program t bypass read, write and execute permission checks. Programs that
+needs to access system resource for a user without giving the user direct access to those resources
+needs these capabilities. For example the =passwd= utility needs to access =/etc/shadow= file which
+is owned by root, but the same file needs to be modified by other users as well.
+
+#+begin_src bash
+sudo setcap cap_fowner,cap_chown,cap_dac_override+ep /usr/bin/passwd
+#+end_src
+
+[[./img/example2.png]]
+
+As you can see in the example once the program was enough capabilities, it started working again
+
+*** 3. =cap_chown=
+Like the name suggests this capability gives the program the ability to manipulate a files ownership
+and its group ownership, this is done by changing its UIDs and GIDs. Again =passwd= is an example
+utility that needs these capability.
+
+#+begin_src bash
+sudo setcap cap_fowner,cap_chown,cap_dac_override+ep /usr/bin/passwd
+#+end_src
+
+*** 4. =cap_setuid=
+Like the name suggests, this capability enables a process to make arbitrary manipulations to any
+files UIDs. This capability also enables a process to create UIDs when working with UNIX domain
+sockets. This also can change the UID to map the file or program into a different user space.
+
+One of the main uses with having this capability is to change UIDs, so a program can do some
+un-privileged work and come back to a normal process in a safe manner.
+
+Programs that require this capability needs them to make other processes that needs to do privileged
+actions.
+
+*** 5. =cap_kill=
+
+This capability gives a process the ability bypass the permissions required to send signals. This is
+mostly used by daemon programs that needs to manage other processes.
+
+#+begin_src bash
+sudo setcap cap_kill+ep ./example
+#+end_src
+*** 6. =cap_net_raw=
+
+This capability gives a processes the ability to bind to any IP address, as well as give them the
+ability to use RAW and PACKET sockets. An example program that needs this would be =ping=
+
+You can see how =ping= won't work without this permission in the following example.
+[[./img/example3.png]]
+
 * Task #2: Adjusting Privileges
 
 After building =use_cap= gave it the required capabilities
