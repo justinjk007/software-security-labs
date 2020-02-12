@@ -2,10 +2,10 @@
 % writeLaTeX Example: A quick guide to LaTeX
 %
 % Source: Dave Richeson (divisbyzero.com), Dickinson College
-% 
-% A one-size-fits-all LaTeX cheat sheet. Kept to two pages, so it 
+%
+% A one-size-fits-all LaTeX cheat sheet. Kept to two pages, so it
 % can be printed (double-sided) on one piece of paper
-% 
+%
 % Feel free to distribute this example, but please keep the referral
 % to divisbyzero.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -17,6 +17,9 @@
 \usepackage{ifthen}
 \usepackage[landscape]{geometry}
 \usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+\setlist{noitemsep}
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
     { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
@@ -44,7 +47,7 @@
 \setlength{\parskip}{0pt plus 0.5ex}
 % -----------------------------------------------------------------------
 
-\title{Quick Guide to LaTeX}
+\title{Midterm 1 cheat sheet}
 
 \begin{document}
 
@@ -52,7 +55,7 @@
 \footnotesize
 
 \begin{center}
-    \Large{\textbf{A quick guide to \LaTeX}} \\
+    \Large{\textbf{Midterm 1 cheat sheet}} \\
 \end{center}
 \begin{multicols}{3}
 \setlength{\premulticols}{1pt}
@@ -60,160 +63,90 @@
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
 
-\section{What is \LaTeX?}
-\LaTeX (usually pronounced ``LAY teck,'' sometimes ``LAH teck,'' and never ``LAY tex'') is a mathematics typesetting program that is the standard for most professional mathematics writing. It is based on the typesetting program \TeX\ created by Donald Knuth of Stanford University (his first version appeared in 1978). Leslie Lamport was responsible for creating \LaTeX\, a more user friendly version of \TeX. A team of \LaTeX\ programmers created the current version,  \LaTeX\ 2$\varepsilon$.
+\section{Chapter 02}
+Many symmetric block encryption algorithms, including DES, have a structure first described by
+\textbf{Horst Feistel} of IBM in 1973
+\subsection{Data Encryption Standard (DES)}
+The plaintext is 64 bits and the key is 56 bits
+\begin{itemize}
+\item There are 16 rounds of processing.
+\item From the original 56-bit key, 16 subkeys are generated
+\end{itemize}
+\subsection{Triple DES}
+The function follows an encrypt-decrypt-encrypt (EDE) sequence: C = E(K3, D(K2, E(K1, P)))
+\subsection{Advanced Encryption Standard (AES)}
+NIST called for proposals for a new AES in 1997
+\begin{itemize}
+\item Selected Rijndaelin November 2001
+\item Published as FIPS 197
+\item 10 rounds: the first 9 has 4 stages each and the 10th round has only 3 stages
+\item Each round has one of permutation and three of substitution
+    stages: \textbf{1}.Substitute Bytes: Uses a table (called S-box), to
+    perform a byte-by-byte substitution of the block \textbf{2}.Shift
+    Rows (On encryption left rotate each row of State by 0,1,2,3 bytes
+    respectively) \textbf{3}.Mix Columns \textbf{4}.Add Round key: A
+    simple bitwise XOR of the current block with a portion of the
+    expanded key
+\end{itemize}
 
-\section{Math vs. text vs. functions}
-In properly typeset mathematics  variables appear in italics (e.g., $f(x)=x^{2}+2x-3$). The exception to this rule is predefined functions (e.g., $\sin (x)$). Thus it is important to \textbf{always} treat text, variables, and functions correctly. See the difference between $x$ and x, -1 and $-1$, and $sin(x)$ and $\sin(x)$.  
+\subsection{Page 2 section}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit
+tristique hendrerit. In tempus mi mauris, sed hendrerit lorem lobortis
+non. Aliquam erat volutpat. Etiam ornare aliquet suscipit. Proin
+euismod pellentesque facilisis. Proin euismod sapien ligula, quis
+congue velit placerat ut. Fusce ex erat, aliquet id nibh eu, euismod
+porttitor magna. In orci mi, tempor nec rhoncus eu, congue non
+ligula. Aenean non sodales risus, iaculis viverra felis. Nunc
+condimentum commodo mauris non ullamcorper.
 
-There are two ways to present a mathematical expression--- \emph{inline} or as an \emph{equation}.
+Quisque hendrerit, mi eu semper viverra, quam leo fermentum nisi, vel
+hendrerit ante risus eget tellus. Maecenas imperdiet bibendum tellus,
+ut tempus augue faucibus quis. Fusce cursus pretium lobortis. Quisque
+fringilla dignissim nibh, ut interdum mi viverra sit amet. Proin
+feugiat erat odio, id consectetur nisi iaculis sed. Suspendisse
+potenti. Integer vel mauris vitae mi aliquam convallis ac ullamcorper
+quam. Praesent elementum egestas nulla, mollis cursus sem venenatis
+eu. Morbi pulvinar sed neque pharetra varius.
 
-\subsection{Inline mathematical expressions}
-Inline expressions occur in the middle of a sentence.  To produce an inline expression, place the math expression between dollar signs (\verb!$!).  For example, typing \verb!$90^{\circ}$ is the same as $\frac{\pi}{2}$ radians!  yields $90^{\circ}$ is the same as $\frac{\pi}{2}$ radians.
+Duis in lectus est. Nunc sollicitudin neque eget viverra
+egestas. Mauris ornare ligula magna, vitae posuere risus pulvinar
+quis. Sed at leo ut magna lobortis tincidunt. Duis vitae mauris vitae
+ligula fringilla suscipit. Morbi non orci a lacus vehicula varius
+tristique in lorem. Phasellus nec eros nec eros varius imperdiet quis
+id enim. Pellentesque tempor dui non odio egestas blandit. Morbi a
+massa pretium, feugiat arcu a, malesuada felis. In vitae venenatis
+neque. Duis posuere ipsum at nibh finibus venenatis eu ac mi. Nullam
+pulvinar turpis sem, in ultrices sapien accumsan id. Aenean non mi ac
+ex semper aliquam. Nam at commodo nisl. Aliquam ac metus est. Sed eget
+enim convallis, hendrerit nibh quis, suscipit risus.
 
-\subsection{Equations}
-Equations are mathematical expressions that are given their own line and are centered on the page.  These are usually used for important equations that deserve to be showcased on their own line or for large equations that cannot fit inline. To produce an inline expression, place the mathematical expression  between the symbols  \verb!\[! and \verb!\]!. Typing \verb!\[x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]! yields \[x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}.\]
-    
-\subsection{Displaystyle} 
-To get full-sized inline mathematical expressions  use  \verb!\displaystyle!. Use this sparingly. Typing \verb!I want this $\displaystyle \sum_{n=1}^{\infty}! \verb!\frac{1}{n}$, not this $\sum_{n=1}^{\infty}! \verb!\frac{1}{n}$.! yields\\ I want  this $\displaystyle \sum_{n=1}^{\infty}\frac{1}{n}$, not this $\sum_{n=1}^{\infty}\frac{1}{n}.$
+Quisque dignissim turpis quis nisl pellentesque, a molestie nulla
+efficitur. Aliquam erat volutpat. In hac habitasse platea
+dictumst. Maecenas maximus erat mollis vulputate iaculis. Orci varius
+natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+mus. Sed dui ligula, tincidunt ac tempus et, viverra posuere
+magna. Phasellus luctus purus in laoreet ultricies. Donec vehicula
+eget purus facilisis placerat. Fusce vel purus et dui consectetur
+lacinia. Nullam sollicitudin commodo nibh non sollicitudin. Mauris
+rutrum vitae ante eget hendrerit. Duis eleifend faucibus diam in
+mattis.
 
-\section{Images}
-
-You can put images (pdf, png, jpg, or gif) in your document. They need to be in the same location as your .tex file when you compile the document. Omit   \verb![width=.5in]! if you want the image to be full-sized.
-
-\verb!\begin{figure}[ht]!\\
-\verb!\includegraphics[width=.5in]{imagename.jpg}!\\
-\verb!\caption{The (optional) caption goes here.}!\\
-\verb!\end{figure}!
-
-\subsection{Text decorations}
-
-Your text can be \textit{italics} (\verb!\textit{italics}!), \textbf{boldface} (\verb!\textbf{boldface}!), or \underline{underlined} (\verb!\underline{underlined}!).
-
-Your math can contain boldface, $\mathbf{R}$ (\verb!\mathbf{R}!), or blackboard bold, $\mathbb{R}$ (\verb!\mathbb{R}!). You may want to used these to express the sets of real numbers ($\mathbb{R}$ or $\mathbf{R}$), integers ($\mathbb{Z}$ or $\mathbf{Z}$), rational numbers ($\mathbb{Q}$ or $\mathbf{Q}$), and natural numbers ($\mathbb{N}$ or $\mathbf{N}$).
-
-To have text appear in a math expression use \verb!\text!. \verb!(0,1]=\{x\in\mathbb{R}:x>0\text{ and }x\le 1\}! yields $(0,1]=\{x\in\mathbb{R}:x>0\text{ and }x\le 1\}$. (Without the \verb!\text! command it treats ``and'' as three variables: $(0,1]=\{x\in\mathbb{R}:x>0 and x\le 1\}$.)
-
-\section{Spaces and new lines}
-
-\LaTeX\ ignores extra spaces and new lines. For example, 
-
-\verb!This   sentence will       look!
-
-\verb!fine after      it is     compiled.!
-
-This   sentence will       look
-fine after      it is     compiled.
-
-Leave one full empty line between two paragraphs. Place \verb!\\! at the end of a line to create a new line (but not create a new paragraph).
-
-\verb!This!
-
-\verb!compiles!
-
-~
-
-\verb!like\\!
-
-\verb!this.!
-
-This
-compiles 
-
-like\\
-this.
-
-Use  \verb!\noindent! to prevent a paragraph from indenting.
-
-\section{Comments}
-
-Use \verb!%! to create a comment. Nothing on the line after the \verb!%! will be typeset. \verb!$f(x)=\sin(x)$ %this is the sine function! yields $f(x)=\sin(x)$%this is the sine function
-
-\section{Delimiters}
-
-\begin{tabular}{lll}
-\emph{description} & \emph{command} & \emph{output}\\
-parentheses &\verb!(x)! & (x)\\
-brackets &\verb![x]! & [x]\\
-curly braces& \verb!\{x\}! & \{x\}\\
-\end{tabular}
-
-To make your delimiters large enough to fit the content, use them together with \verb!\right! and \verb!\left!. For example, \verb!\left\{\sin\left(\frac{1}{n}\right)\right\}_{n}^! \verb!{\infty}! produces\\ $\displaystyle \left\{\sin\left(\frac{1}{n}\right)\right\}_{n}^{\infty}$.
-
-Curly braces are non-printing characters that are used to gather text that has more than one character. Observe the differences between the four expressions \verb!x^2!, \verb!x^{2}!, \verb!x^2t!, \verb!x^{2t}! when typeset: $x^2$, $x^{2}$, $x^2t$, $x^{2t}$.
-
-\section{Lists}
-
-You can produce ordered and unordered lists.
-
-\begin{tabular}{lll}
-\emph{description} & \emph{command} & \emph{output}\\
-unordered list&
-\begin{tabular}{l}
-\verb!\begin{itemize}!\\
-\verb!  \item!\\
-\verb!  Thing 1!\\
-\verb!  \item!\\
-\verb!  Thing 2!\\
-\verb!\end{itemize}!
-\end{tabular}&
-\begin{tabular}{l}
-$\bullet$ Thing 1\\
-$\bullet$ Thing 2
-\end{tabular}\\
+Nunc id justo condimentum, blandit urna ac, vulputate leo. Curabitur
+sed cursus dolor. Proin ultrices eget lacus congue tempus. Suspendisse
+gravida, metus nec scelerisque porta, ante metus sodales justo, a
+maximus metus dolor a nunc. Nam imperdiet libero sem, sed rhoncus urna
+pharetra in. Vivamus aliquet orci augue, non placerat est feugiat
+molestie. Morbi molestie feugiat elit, vel posuere odio. Donec et leo
+sodales, sagittis nulla et, finibus libero. Nulla metus urna, placerat
+a est et, pharetra laoreet mi. Nullam consequat urna ut lorem mattis,
+a cursus est rhoncus. Aliquam blandit pharetra dignissim. Nulla dictum
+iaculis erat, id consequat justo scelerisque at. Maecenas maximus
+metus sit amet ipsum semper tristique. Nunc malesuada augue nec nunc
+feugiat, sed mollis tortor semper. Aenean ipsum nunc, molestie non
+erat eu, sollicitudin tincidunt est.
 ~\\
-ordered list&
-\begin{tabular}{l}
-\verb!\begin{enumerate}!\\
-\verb!  \item!\\
-\verb!  Thing 1!\\
-\verb!  \item!\\
-\verb!  Thing 2!\\
-\verb!\end{enumerate}!
-\end{tabular}&
-\begin{tabular}{l}
-1.~Thing 1\\
-2.~Thing 2
-\end{tabular}
-\end{tabular}
 
-\section{Symbols (in \emph{math} mode)}
-
-\subsection{The basics}
-\begin{tabular}{lll}
-\emph{description} & \emph{command} & \emph{output}\\
-addition & \verb!+! & $+$\\
-subtraction & \verb!-! & $-$\\
-plus or minus & \verb!\pm! & $\pm$\\
-multiplication (times) & \verb!\times! & $\times$\\
-multiplication (dot) & \verb!\cdot! & $\cdot$\\
-division symbol & \verb!\div! & $\div$\\
-division (slash) & \verb!/! & $/$\\
-circle plus & \verb!\oplus! & $\oplus$\\
-circle times & \verb!\otimes! & $\otimes$\\
-equal & \verb!=! & $=$\\
-not equal & \verb!\ne! & $\ne$\\
-less than & \verb!<! & $<$\\
-greater than & \verb!>! & $>$\\
-less than or equal to & \verb!\le! & $\le$\\
-greater than or equal to & \verb!\ge! & $\ge$\\
-approximately equal to & \verb!\approx! & $\approx$\\
-infinity & \verb!\infty! & $\infty$\\
-dots & \verb!1,2,3,\ldots! & $1,2,3,\ldots$\\
-dots & \verb!1+2+3+\cdots! & $1+2+3+\cdots$\\
-fraction & \verb!\frac{a}{b}! & $\frac{a}{b}$\\
-square root & \verb!\sqrt{x}! & $\sqrt{x}$\\
-$n$th root & \verb!\sqrt[n]{x}! & $\sqrt[n]{x}$\\
-exponentiation & \verb!a^b! & $a^{b}$\\
-subscript & \verb!a_b! & $a_{b}$\\
-absolute value & \verb!|x|! & $|x|$\\
-natural log  & \verb!\ln(x)! & $\ln(x)$\\
-logarithms & \verb!\log_{a}b! & $\log_{a}b$\\
-exponential function & \verb!e^x=\exp(x)! & $e^{x}=\exp(x)$\\
-degree & \verb!\deg(f)! & $\deg(f)$\\
-\end{tabular}
-
-~\\
+\vfill
 \hrule
 ~\\
 \textbf{Justin Kaipada, 100590167}
