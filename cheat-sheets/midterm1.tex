@@ -20,6 +20,33 @@
 \usepackage{enumitem}
 \setlist[itemize]{leftmargin=*}
 \setlist{noitemsep}
+\usepackage{listings}
+\lstset{
+backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+basicstyle=\scriptsize,          % the size of the fonts that are used for the code
+breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+breaklines=true,                 % sets automatic line breaking
+captionpos=b,                    % sets the caption-position to bottom
+commentstyle=\bfseries,          % comment style
+extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+firstnumber=1000,                % start line enumeration with line 1000
+frame=single,                    % adds a frame around the code
+keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+keywordstyle=\color{blue},       % keyword style
+language=bash,                   % the language of the code
+morekeywords={ls,ping},          % if you want to add more keywords to the set
+numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+numbersep=5pt,                   % how far the line-numbers are from the code
+numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+showstringspaces=false,          % underline spaces within strings only
+showtabs=false,                  % show tabs within strings adding particular underscores
+stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+stringstyle=\color{black},       % string literal style
+tabsize=2,                       % sets default tabsize to 2 spaces
+title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
     { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
@@ -63,6 +90,9 @@
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
 
+\section{Chapter 01}
+\textbf{NIST: }National Institute of Standards and Technology
+
 \section{Chapter 02}
 Many symmetric block encryption algorithms, including DES, have a structure first described by
 \textbf{Horst Feistel} of IBM in 1973
@@ -72,10 +102,12 @@ The plaintext is 64 bits and the key is 56 bits
 \item There are 16 rounds of processing.
 \item From the original 56-bit key, 16 subkeys are generated
 \end{itemize}
-\subsection{Triple DES}
+\subsection{Triple DES (Can use 2 keys or 3 keys)}
 The function follows an encrypt-decrypt-encrypt (EDE) sequence: C = E(K3, D(K2, E(K1, P)))
 \subsection{Advanced Encryption Standard (AES)}
 NIST called for proposals for a new AES in 1997
+
+Block size is 128, key size can be 128, 192, 256
 \begin{itemize}
 \item Selected Rijndaelin November 2001
 \item Published as FIPS 197
@@ -88,6 +120,122 @@ NIST called for proposals for a new AES in 1997
     simple bitwise XOR of the current block with a portion of the
     expanded key
 \end{itemize}
+\textbf{Electronic Codebook} (ECB): Plaintext is handled b bits at a
+time and each block is encrypted using the same key
+
+\subsection{RC4(Stream Cipher)(Rivest Cipher4 )}
+Normally 64 or 128 but keys, text cipher 1 byte at a time
+KSA: Key scheduling algorithm
+\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+for
+    i = 0 to 255 do S[i] = i;
+T[i] = K[i mod k - len];
+\end{lstlisting}
+
+\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+j = 0;
+for
+    i = 0 to 255 do
+    {
+    j = (j + S[i] + T[i])mod 256;
+    Swap(S[i], S[j]);
+    }
+\end{lstlisting}
+
+Pseudo Random Generation algorithm
+\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+i, j = 0;
+while (true)
+    i = (i + 1)mod 256;
+j = (j + S[i])mod 256;
+Swap(S[i], S[j]);
+t = (S[i] + S[j])mod 256;
+k = S[t];
+\end{lstlisting}
+Finally, encrypt using \textbf{XOR}
+
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ A & B & A x B \\ 
+ \hline
+ 0 & 0 & 0 \\ 
+ 0 & 1 & 1 \\ 
+ 1 & 0 & 1 \\ 
+ 1 & 1 & 0 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item To encrypt XOR the value k with the next byte of the plain text
+\item To decrypt, XOR the value k with the next byte of ciphertext
+\end{itemize}
+
+\textbf{Cipher Block Chaining} The input to the encryption algorithm is the XOR of 64 bits of
+plaintext and the previous 64 bits of ciphertext. At start uses initialaztion vector instead or cipher text.
+\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\[C_j= E(K, [C_j–1 \oplus P_j])\]
+
+\textbf{Counter mode(CTR)} The counter is initialized to some value and then incremented by 1 for
+each subsequent block (modulo 2b, where b is the block size). For encryption, the counter is
+encrypted and then XORed with the plaintext block
+
+~\\
+\textbf{Block reordering is a threat to symmetric encryption}
+
+~\\
+
+\textbf{MAC:} Message authentication code. It uses a secret key to
+generate a small block of data, known as a MAC, that is appended to
+the message. The recipient performs the same calculation on the
+received message, using the same secret key, to generate a new message
+authentication code. If the MAC generated on the other side matches,
+message was not altered.
+
+DES can be used to generate an encrypted version of the message, and
+the last number of bits of ciphertext are used as the code.
+
+\textbf{One way hash functions:} Hash functions are used in other Internet protocols such as Transport
+Layer Security \textbf{(TLS)} and Secure Electronic Transaction \textbf{(SET)}
+
+\textbf{HMAC:} Keyed-Hash message authentication code.
+
+\subsection{Public Key cryptography}
+\textbf{RSA} By Rivest, Shamir \& Adlemanof MIT in 1977
+
+\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+# Choose two distinct prime numbers, such as
+p = 61 and q = 53
+# Compute n = pq giving
+n = 61 x 53 = 3233
+# Compute the Carmichael's totient (lamda)
+lamda(n) = lcm(p-1, q-1) giving
+lamda(3233) = lcm(60,52) = 780
+# Choose any number 1 < e < 780 that is coprime to 780.
+# only number that divides both of them should be 1
+Let e = 17
+# Compute d
+d x e = 1 mod lamda (n)
+# d x 17 mod 780 should get the reminder 1
+d = 413
+# The public key is (n = 3233, e = 17)
+c(m) = m^17 mod 3233
+# The private key is (n = 3233, d = 413)
+m(c) = c^413 mod 3233
+\end{lstlisting}
+
+\textbf{Public-key certificate} It consists of a public key plus a
+user ID of the key owner, with the whole block signed by a trusted
+third party.
+One scheme has become universally accepted for formatting public-key certificates:\textbf{the X.509 standard.} 
+
+\textbf{Diffie-Hellman Key Exchange}
+
 
 \subsection{Page 2 section}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit
@@ -131,19 +279,6 @@ lacinia. Nullam sollicitudin commodo nibh non sollicitudin. Mauris
 rutrum vitae ante eget hendrerit. Duis eleifend faucibus diam in
 mattis.
 
-Nunc id justo condimentum, blandit urna ac, vulputate leo. Curabitur
-sed cursus dolor. Proin ultrices eget lacus congue tempus. Suspendisse
-gravida, metus nec scelerisque porta, ante metus sodales justo, a
-maximus metus dolor a nunc. Nam imperdiet libero sem, sed rhoncus urna
-pharetra in. Vivamus aliquet orci augue, non placerat est feugiat
-molestie. Morbi molestie feugiat elit, vel posuere odio. Donec et leo
-sodales, sagittis nulla et, finibus libero. Nulla metus urna, placerat
-a est et, pharetra laoreet mi. Nullam consequat urna ut lorem mattis,
-a cursus est rhoncus. Aliquam blandit pharetra dignissim. Nulla dictum
-iaculis erat, id consequat justo scelerisque at. Maecenas maximus
-metus sit amet ipsum semper tristique. Nunc malesuada augue nec nunc
-feugiat, sed mollis tortor semper. Aenean ipsum nunc, molestie non
-erat eu, sollicitudin tincidunt est.
 ~\\
 
 \vfill
