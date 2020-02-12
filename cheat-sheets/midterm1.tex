@@ -17,6 +17,9 @@
 \usepackage{ifthen}
 \usepackage[landscape]{geometry}
 \usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{plex-mono}
+\usepackage[sfdefault]{plex-sans}
+\usepackage{wrapfig}
 \usepackage{enumitem}
 \setlist[itemize]{leftmargin=*}
 \setlist{noitemsep}
@@ -91,13 +94,38 @@ title=\lstname                   % show the filename of files included with \lst
 \setlength{\columnsep}{2pt}
 
 \section{Chapter 01}
-\textbf{NIST: }National Institute of Standards and Technology
+\begin{itemize}
+\item \textbf{NIST: }National Institute of Standards and Technology
+\item \textbf{FIPS: }Federal information processing standards
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{Confidentiality}: Preserving authorized restrictions on information access and disclosure, including means for protecting personal privacy and proprietary information
+\item \textbf{Integrity}: Guarding against improper information modification or destruction, including ensuring information nonrepudiation and authenticity
+\item \textbf{Availability}: Assures that systems work promptly and service is not denied to authorized users.
+\item \textbf{Authenticity}: verifying that users are who they say they are and that each input arriving at the system came from a trusted source.
+\item \textbf{Accountability}: we must be able to trace a security breach to a responsible party.
+\end{itemize}
+
+\textbf{Fundamental security design principles:} Economy of mechanism
+• Fail-safe defaults • Complete mediation • Open design • Separation
+of privilege • Least privilege • Least common mechanism •
+Psychological acceptability • Isolation • Encapsulation • Modularity •
+Layering • Least astonishment
 
 \section{Chapter 02}
+There are two general approaches to \textbf{attacking} a symmetric encryption scheme: •
+\textbf{Cryptanalytic Attacks:} :• Rely on the Nature of the algorithm • Some knowledge of the general
+characteristics of the plaintext • Some sample plaintext-ciphertextpairs • Exploits the
+characteristics of the algorithm to attempt to deduce a specific plaintext or the key being used •
+If successful all future and past messages encrypted with that key are compromised •
+\textbf{Brute-Force Attack}
+
 Many symmetric block encryption algorithms, including DES, have a structure first described by
 \textbf{Horst Feistel} of IBM in 1973
 \subsection{Data Encryption Standard (DES)}
-The plaintext is 64 bits and the key is 56 bits
+The plaintext is 64 bits and the key is 56 bits, this is the example quiz we did were we used XORs
+and stuff.
 \begin{itemize}
 \item There are 16 rounds of processing.
 \item From the original 56-bit key, 16 subkeys are generated
@@ -144,6 +172,20 @@ for
     }
 \end{lstlisting}
 
+
+\begin{wraptable}{r}{2.5cm}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ A & B & A x B \\ 
+ \hline
+ 0 & 0 & 0 \\ 
+ 0 & 1 & 1 \\ 
+ 1 & 0 & 1 \\ 
+ 1 & 1 & 0 \\ 
+ \hline
+\end{tabular}
+\end{wraptable}
+
 Pseudo Random Generation algorithm
 \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -157,18 +199,6 @@ k = S[t];
 \end{lstlisting}
 Finally, encrypt using \textbf{XOR}
 
-\begin{center}
-\begin{tabular}{ |c|c|c| } 
- \hline
- A & B & A x B \\ 
- \hline
- 0 & 0 & 0 \\ 
- 0 & 1 & 1 \\ 
- 1 & 0 & 1 \\ 
- 1 & 1 & 0 \\ 
- \hline
-\end{tabular}
-\end{center}
 
 \begin{itemize}
 \item To encrypt XOR the value k with the next byte of the plain text
@@ -234,50 +264,38 @@ user ID of the key owner, with the whole block signed by a trusted
 third party.
 One scheme has become universally accepted for formatting public-key certificates:\textbf{the X.509 standard.} 
 
-\textbf{Diffie-Hellman Key Exchange}
+\textbf{Diffie-Hellman Key Exchange} A primitive root \textbf{a} of a
+prime number \textbf{p} as one whose powers generate all the integers
+from 1 to p -1
+
+% Slide 74 in lecture 02
+\lstset{language=bash,label= ,caption=,captionpos=b,numbers=none}
+\begin{lstlisting}
+  # Have a publically known numbers:
+  Prime number q= 353 Primitive root = 3
+  # A and B each compute their public keys
+  A selects a private random integer X_A =97<q
+  A computes Y_A = 3^97 mod 353 = 40
+  B selects a private random integer X_B=233<q
+  B computes Y_B= 3^233 mod 353 = 248
+  # Then exchange and compute secret key:
+  For A: K= (Y_B)^XA mod 353 = 248^97 mod 353 = 160
+  For B: K= (Y_A)^XB mod 353 = 40^233 mod 353 = 160
+\end{lstlisting}
+
+\textbf{Pretty Good Privacy (PGP):} The PGP package does not store the
+password. To recover a file, the user enters the password, PGP
+generates the key, and PGP decrypts the file.
+
+\section{Chapter 03}
 
 
-\subsection{Page 2 section}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit
-tristique hendrerit. In tempus mi mauris, sed hendrerit lorem lobortis
-non. Aliquam erat volutpat. Etiam ornare aliquet suscipit. Proin
-euismod pellentesque facilisis. Proin euismod sapien ligula, quis
-congue velit placerat ut. Fusce ex erat, aliquet id nibh eu, euismod
-porttitor magna. In orci mi, tempor nec rhoncus eu, congue non
-ligula. Aenean non sodales risus, iaculis viverra felis. Nunc
-condimentum commodo mauris non ullamcorper.
+\textbf{Pretty Good Privacy (PGP):} The PGP package does not store the
 
-Quisque hendrerit, mi eu semper viverra, quam leo fermentum nisi, vel
-hendrerit ante risus eget tellus. Maecenas imperdiet bibendum tellus,
-ut tempus augue faucibus quis. Fusce cursus pretium lobortis. Quisque
-fringilla dignissim nibh, ut interdum mi viverra sit amet. Proin
-feugiat erat odio, id consectetur nisi iaculis sed. Suspendisse
-potenti. Integer vel mauris vitae mi aliquam convallis ac ullamcorper
-quam. Praesent elementum egestas nulla, mollis cursus sem venenatis
-eu. Morbi pulvinar sed neque pharetra varius.
+\textbf{MD5 hash function} Salt of up to 48-bits.  Password length is unlimited.  Produces 128-bit
+hash.
 
-Duis in lectus est. Nunc sollicitudin neque eget viverra
-egestas. Mauris ornare ligula magna, vitae posuere risus pulvinar
-quis. Sed at leo ut magna lobortis tincidunt. Duis vitae mauris vitae
-ligula fringilla suscipit. Morbi non orci a lacus vehicula varius
-tristique in lorem. Phasellus nec eros nec eros varius imperdiet quis
-id enim. Pellentesque tempor dui non odio egestas blandit. Morbi a
-massa pretium, feugiat arcu a, malesuada felis. In vitae venenatis
-neque. Duis posuere ipsum at nibh finibus venenatis eu ac mi. Nullam
-pulvinar turpis sem, in ultrices sapien accumsan id. Aenean non mi ac
-ex semper aliquam. Nam at commodo nisl. Aliquam ac metus est. Sed eget
-enim convallis, hendrerit nibh quis, suscipit risus.
-
-Quisque dignissim turpis quis nisl pellentesque, a molestie nulla
-efficitur. Aliquam erat volutpat. In hac habitasse platea
-dictumst. Maecenas maximus erat mollis vulputate iaculis. Orci varius
-natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-mus. Sed dui ligula, tincidunt ac tempus et, viverra posuere
-magna. Phasellus luctus purus in laoreet ultricies. Donec vehicula
-eget purus facilisis placerat. Fusce vel purus et dui consectetur
-lacinia. Nullam sollicitudin commodo nibh non sollicitudin. Mauris
-rutrum vitae ante eget hendrerit. Duis eleifend faucibus diam in
-mattis.
+OpenBSD uses Blowfish block cipher based hash algorithm called \textbf{Bcrypt}
 
 ~\\
 
