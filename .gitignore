@@ -3,3 +3,4 @@
 *.aux
 *.pdf
 *.out
+!midterm1.tex
