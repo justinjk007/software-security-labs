@@ -4,3 +4,4 @@
 *.pdf
 *.out
 !midterm1.tex
+!midterm2.tex

@@ -1,0 +1,247 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% writeLaTeX Example: A quick guide to LaTeX
+%
+% Source: Dave Richeson (divisbyzero.com), Dickinson College
+%
+% A one-size-fits-all LaTeX cheat sheet. Kept to two pages, so it
+% can be printed (double-sided) on one piece of paper
+%
+% Feel free to distribute this example, but please keep the referral
+% to divisbyzero.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt,landscape]{article}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{plex-mono}
+\usepackage[sfdefault]{plex-sans}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\graphicspath{ {./} }
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+\setlist{noitemsep}
+\usepackage{listings}
+\lstset{
+backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+basicstyle=\scriptsize,          % the size of the fonts that are used for the code
+breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+breaklines=true,                 % sets automatic line breaking
+captionpos=b,                    % sets the caption-position to bottom
+commentstyle=\bfseries,          % comment style
+extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+firstnumber=1000,                % start line enumeration with line 1000
+frame=single,                    % adds a frame around the code
+keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+keywordstyle=\color{blue},       % keyword style
+language=bash,                   % the language of the code
+morekeywords={ls,ping},          % if you want to add more keywords to the set
+numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+numbersep=5pt,                   % how far the line-numbers are from the code
+numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+showstringspaces=false,          % underline spaces within strings only
+showtabs=false,                  % show tabs within strings adding particular underscores
+stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+stringstyle=\color{black},       % string literal style
+tabsize=2,                       % sets default tabsize to 2 spaces
+title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+    {\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+    {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    }
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+    {-1ex plus -.5ex minus -.2ex}%
+    {0.5ex plus .2ex}%x
+    {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+    {-1explus -.5ex minus -.2ex}%
+    {0.5ex plus .2ex}%
+    {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+    {-1ex plus -.5ex minus -.2ex}%
+    {1ex plus .2ex}%
+    {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\title{Midterm 2 cheat sheet}
+
+\begin{document}
+
+\raggedright
+\footnotesize
+
+\begin{center}
+    \Large{\textbf{Midterm 2 cheat sheet}} \\
+\end{center}
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\section{Chapter 01}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. In eu mi
+bibendum neque egestas congue quisque. Accumsan tortor posuere ac ut
+consequat semper viverra. Nec nam aliquam sem et tortor consequat id
+porta nibh. Ridiculus mus mauris vitae ultricies leo integer. Nulla
+porttitor massa id neque aliquam vestibulum morbi blandit
+cursus. Massa vitae tortor condimentum lacinia quis vel. Tincidunt
+nunc pulvinar sapien et ligula ullamcorper malesuada proin
+libero. Porttitor lacus luctus accumsan tortor posuere. Viverra nam
+libero justo laoreet sit amet cursus. Nec ultrices dui sapien
+eget. Sit amet venenatis urna cursus eget. Habitasse platea dictumst
+quisque sagittis purus. Orci porta non pulvinar neque laoreet
+suspendisse interdum consectetur.
+
+Pharetra pharetra massa massa ultricies mi quis. Faucibus a
+pellentesque sit amet porttitor eget dolor morbi non. Lectus
+vestibulum mattis ullamcorper velit. Scelerisque eu ultrices vitae
+auctor eu augue ut lectus. Mus mauris vitae ultricies leo integer
+malesuada. Praesent elementum facilisis leo vel fringilla est
+ullamcorper. Tincidunt ornare massa eget egestas purus viverra. In hac
+habitasse platea dictumst quisque sagittis purus. Adipiscing vitae
+proin sagittis nisl rhoncus. Libero enim sed faucibus turpis. Vitae
+auctor eu augue ut. Odio ut sem nulla pharetra.
+
+\includegraphics[width=8cm]{test}
+
+Velit scelerisque in dictum non consectetur a. Viverra maecenas
+accumsan lacus vel facilisis volutpat. Mauris vitae ultricies leo
+integer. Mattis rhoncus urna neque viverra justo nec. Scelerisque
+eleifend donec pretium vulputate. Ac feugiat sed lectus vestibulum
+mattis ullamcorper. Risus ultricies tristique nulla aliquet enim
+tortor at auctor urna. In arcu cursus euismod quis viverra. Facilisi
+morbi tempus iaculis urna id volutpat. Nullam ac tortor vitae purus
+faucibus ornare suspendisse sed nisi. Id aliquet risus feugiat in.
+
+Nibh sit amet commodo nulla facilisi nullam. Sed pulvinar proin
+gravida hendrerit lectus. Varius sit amet mattis vulputate enim nulla
+aliquet porttitor lacus. Tincidunt tortor aliquam nulla facilisi cras
+fermentum. Hendrerit dolor magna eget est lorem ipsum dolor sit
+amet. Pellentesque adipiscing commodo elit at imperdiet dui accumsan
+sit amet. In egestas erat imperdiet sed euismod nisi porta
+lorem. Ipsum a arcu cursus vitae congue mauris. Risus viverra
+adipiscing at in tellus integer feugiat scelerisque varius. Aliquam
+eleifend mi in nulla. Tincidunt eget nullam non nisi est sit
+amet. Gravida dictum fusce ut placerat orci nulla
+pellentesque. Consequat id porta nibh venenatis. Egestas dui id ornare
+arcu. Risus at ultrices mi tempus imperdiet nulla malesuada
+pellentesque.
+
+Aliquet nibh praesent tristique magna sit amet purus gravida quis. Vel
+risus commodo viverra maecenas accumsan. Blandit aliquam etiam erat
+velit scelerisque in dictum non. Diam quis enim lobortis scelerisque
+fermentum dui faucibus in. Adipiscing bibendum est ultricies integer
+quis auctor. Convallis convallis tellus id interdum velit laoreet id
+donec. Habitant morbi tristique senectus et netus et. Purus semper
+eget duis at tellus. Massa tincidunt nunc pulvinar sapien et ligula
+ullamcorper. Sit amet facilisis magna etiam tempor orci eu
+lobortis. Ut eu sem integer vitae justo eget magna fermentum. Sed arcu
+non odio euismod lacinia at.
+
+Sit amet risus nullam eget. Sit amet nulla facilisi morbi tempus
+iaculis urna id volutpat. Vitae elementum curabitur vitae nunc sed
+velit dignissim. Id porta nibh venenatis cras sed felis eget
+velit. Auctor augue mauris augue neque gravida. Diam in arcu cursus
+euismod quis viverra nibh cras pulvinar. Est sit amet facilisis magna
+etiam tempor orci. Malesuada nunc vel risus commodo viverra. Lectus
+proin nibh nisl condimentum id venenatis a condimentum. Urna id
+volutpat lacus laoreet non curabitur gravida arcu ac. Varius vel
+pharetra vel turpis. Proin gravida hendrerit lectus a. Etiam erat
+velit scelerisque in. Leo vel orci porta non. Pretium quam vulputate
+dignissim suspendisse in est ante in.
+
+Sagittis id consectetur purus ut faucibus pulvinar elementum
+integer. Bibendum neque egestas congue quisque egestas diam. Volutpat
+sed cras ornare arcu dui vivamus arcu felis. Laoreet sit amet cursus
+sit amet dictum sit amet justo. Enim neque volutpat ac tincidunt vitae
+semper. Fermentum posuere urna nec tincidunt praesent semper
+feugiat. Odio ut enim blandit volutpat maecenas volutpat. Maecenas
+pharetra convallis posuere morbi leo urna molestie at
+elementum. Commodo elit at imperdiet dui accumsan sit amet
+nulla. Consectetur lorem donec massa sapien faucibus. Egestas sed sed
+risus pretium quam vulputate. Integer quis auctor elit sed vulputate
+mi sit amet mauris. Arcu risus quis varius quam quisque id diam vel
+quam. Non tellus orci ac auctor augue mauris augue neque. Massa
+tincidunt nunc pulvinar sapien et ligula ullamcorper
+malesuada. Phasellus egestas tellus rutrum tellus pellentesque eu
+tincidunt tortor. Risus ultricies tristique nulla aliquet enim tortor
+at auctor urna. In dictum non consectetur a erat nam at.
+
+Dictum sit amet justo donec enim. Ac tincidunt vitae semper
+quis. Placerat orci nulla pellentesque dignissim enim sit amet
+venenatis. Parturient montes nascetur ridiculus mus mauris vitae
+ultricies. Consectetur lorem donec massa sapien faucibus et
+molestie. Lectus nulla at volutpat diam ut venenatis tellus
+in. Pellentesque id nibh tortor id. Varius morbi enim nunc faucibus
+a. Metus dictum at tempor commodo ullamcorper a. Orci porta non
+pulvinar neque. Nisl condimentum id venenatis a condimentum. Felis
+donec et odio pellentesque.
+
+Vestibulum mattis ullamcorper velit sed. Mauris rhoncus aenean vel
+elit scelerisque mauris pellentesque. Neque sodales ut etiam sit. Et
+netus et malesuada fames ac. Odio ut sem nulla pharetra diam sit amet
+nisl. Tristique sollicitudin nibh sit amet commodo nulla. Fames ac
+turpis egestas maecenas pharetra convallis. Ante in nibh mauris cursus
+mattis molestie. Sodales neque sodales ut etiam sit amet. Arcu dui
+vivamus arcu felis bibendum ut tristique et egestas. Nunc sed velit
+dignissim sodales ut eu. Ut aliquam purus sit amet. Vitae elementum
+curabitur vitae nunc sed velit dignissim sodales. Elit at imperdiet
+dui accumsan. Varius duis at consectetur lorem donec massa sapien
+faucibus. Duis ultricies lacus sed turpis. Rhoncus mattis rhoncus urna
+neque viverra justo. Et tortor at risus viverra.
+
+Amet purus gravida quis blandit turpis cursus. Nisi vitae suscipit
+tellus mauris a. Sed odio morbi quis commodo odio aenean sed. Aliquam
+ultrices sagittis orci a. Augue mauris augue neque gravida in. Mi quis
+hendrerit dolor magna eget est lorem. Condimentum mattis pellentesque
+id nibh. Pellentesque habitant morbi tristique senectus et
+netus. Rutrum quisque non tellus orci ac auctor augue mauris
+augue. Ultricies lacus sed turpis tincidunt id aliquet risus. Massa
+massa ultricies mi quis hendrerit. Pharetra diam sit amet nisl. Duis
+at tellus at urna condimentum. Eu feugiat pretium nibh ipsum consequat
+nisl vel. Et netus et malesuada fames ac turpis egestas maecenas. Ut
+tellus elementum sagittis vitae et leo duis. Tempor id eu nisl nunc mi
+ipsum faucibus. Eget gravida cum sociis natoque. Lectus sit amet est
+placerat in egestas. Proin nibh nisl condimentum id venenatis a
+condimentum vitae.
+
+Leo urna molestie at elementum. Ipsum dolor sit amet consectetur
+adipiscing elit. Ullamcorper velit sed ullamcorper morbi. Urna
+molestie at elementum eu facilisis. Semper risus in hendrerit
+gravida. Quam id leo in vitae turpis. Scelerisque eu ultrices vitae
+auctor eu augue ut lectus arcu. Pulvinar proin gravida hendrerit
+lectus a. Aliquam malesuada bibendum arcu vitae elementum. Semper eget
+duis at tellus at urna condimentum mattis pellentesque. Libero justo
+laoreet sit amet cursus sit amet dictum sit. Porta non pulvinar neque
+laoreet suspendisse. Platea dictumst quisque sagittis purus sit. Quam
+viverra orci sagittis eu volutpat odio facilisis mauris sit. Etiam sit
+amet nisl purus in mollis nunc sed id. Sed enim ut sem viverra aliquet
+eget sit amet. Viverra nam libero justo laoreet sit amet cursus.
+
+~\\
+
+\vfill
+\hrule
+~\\
+\large{\textbf{Justin Kaipada, 100590167}}
+\end{multicols}
+
+\end{document}
