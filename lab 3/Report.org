@@ -1,0 +1,157 @@
+#+OPTIONS: toc:nil num:nil
+#+TITLE: LAB 3 - REPORT
+#+AUTHOR: Justin Kaipada - 100590167
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt,letterpaper]
+#+LATEX_HEADER: \usepackage[letterpaper,margin=1.3in]{geometry}
+#+LATEX_HEADER: \usepackage{plex-mono}
+#+LATEX_HEADER: \usepackage[sfdefault]{plex-sans}
+#+LATEX_HEADER: \linespread{1.5} % Change line spacing
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \usepackage{soul}
+#+LATEX_HEADER: \usepackage{helvet}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \setlength{\parindent}{0pt} % Change the paragraphs indent to 0, disabling it
+#+LATEX_HEADER: \usepackage{xcolor-solarized}
+#+LATEX_HEADER: \definecolor{foreground}{RGB}{184, 83, 83} % For verbatim
+#+LATEX_HEADER: \definecolor{background}{RGB}{255, 231, 231} % For verbatim
+#+LATEX_HEADER: \let\OldTexttt\texttt
+#+LATEX_HEADER: \renewcommand{\texttt}[1]{\OldTexttt{\footnotesize\colorbox{background}{\textcolor{foreground}{#1}}}}
+#+LATEX_HEADER: \newenvironment{helvetica}{\fontfamily{phv}\selectfont}{\par}
+#+LATEX_HEADER: \usepackage{hyperref} % Make the hyper-links prettier
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER: colorlinks=true,
+#+LATEX_HEADER: linkcolor=blue!70!white,
+#+LATEX_HEADER: urlcolor=blue!95!black
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \setlist[1]{itemsep=5pt}
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+#+LATEX_HEADER:  basicstyle=\scriptsize,          % the size of the fonts that are used for the code
+#+LATEX_HEADER:  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+#+LATEX_HEADER:  breaklines=true,                 % sets automatic line breaking
+#+LATEX_HEADER:  captionpos=b,                    % sets the caption-position to bottom
+#+LATEX_HEADER:  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+#+LATEX_HEADER:  firstnumber=1000,                % start line enumeration with line 1000
+#+LATEX_HEADER:  frame=single,	                  % adds a frame around the code
+#+LATEX_HEADER:  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+#+LATEX_HEADER:  keywordstyle=\color{blue},       % keyword style
+#+LATEX_HEADER:  language=bash,                   % the language of the code
+#+LATEX_HEADER:  morekeywords={ls,ping},          % if you want to add more keywords to the set
+#+LATEX_HEADER:  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+#+LATEX_HEADER:  numbersep=5pt,                   % how far the line-numbers are from the code
+#+LATEX_HEADER:  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+#+LATEX_HEADER:  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+#+LATEX_HEADER:  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+#+LATEX_HEADER:  showstringspaces=false,          % underline spaces within strings only
+#+LATEX_HEADER:  showtabs=false,                  % show tabs within strings adding particular underscores
+#+LATEX_HEADER:  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+#+LATEX_HEADER:  stringstyle=\color{black},     % string literal style
+#+LATEX_HEADER:  tabsize=2,	                  % sets default tabsize to 2 spaces
+#+LATEX_HEADER:  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+#+LATEX_HEADER: }
+
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+#+LATEX_HEADER:  basicstyle=\scriptsize,          % the size of the fonts that are used for the code
+#+LATEX_HEADER:  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+#+LATEX_HEADER:  breaklines=true,                 % sets automatic line breaking
+#+LATEX_HEADER:  captionpos=b,                    % sets the caption-position to bottom
+#+LATEX_HEADER:  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+#+LATEX_HEADER:  firstnumber=1000,                % start line enumeration with line 1000
+#+LATEX_HEADER:  frame=single,	                  % adds a frame around the code
+#+LATEX_HEADER:  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+#+LATEX_HEADER:  keywordstyle=\color{blue},       % keyword style
+#+LATEX_HEADER:  language=SQL,                   % the language of the code
+#+LATEX_HEADER:  morekeywords={ls,ping},          % if you want to add more keywords to the set
+#+LATEX_HEADER:  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+#+LATEX_HEADER:  numbersep=5pt,                   % how far the line-numbers are from the code
+#+LATEX_HEADER:  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+#+LATEX_HEADER:  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+#+LATEX_HEADER:  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+#+LATEX_HEADER:  showstringspaces=false,          % underline spaces within strings only
+#+LATEX_HEADER:  showtabs=false,                  % show tabs within strings adding particular underscores
+#+LATEX_HEADER:  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+#+LATEX_HEADER:  stringstyle=\color{black},     % string literal style
+#+LATEX_HEADER:  tabsize=2,	                  % sets default tabsize to 2 spaces
+#+LATEX_HEADER:  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+#+LATEX_HEADER: }
+
+#+begin_export latex
+\newpage % Go to the next page after title page
+#+end_export
+
+* Task 1: Setting up the environment, website and database
+
+The lab document suggested that the VM that came with website will have the necessary files to start
+the website we were experimenting with, however I soon found out that this was not the case.
+
+Files that should be in =/var/www/SQLInjection/= was missing so I downloaded the patch from
+blackboard and ran =bootstrap.sh= which setup the full environment.  After checking out the database
+I tested out simple SQL queries on the *mysql* console.
+
+To show Alice's info
+#+begin_src SQL
+SELECT * from credential WHERE name="Alice";
+#+end_src
+
+* Task 2: SQL Injection Attack on SELECT Statement
+
+To login as Admin, enter this into the employee id field
+#+begin_src SQL
+007' or name= 'admin'; --   /
+#+end_src
+
+[[./admin_sql_injection.png]]
+
+This query adds the =or= part to the authentication query and validates to true if the name is
+"admin", giving us admin access. Then the query is ended using a semicolon, a comment is started to
+void the rest of the query using =--= operator. After which =/= is used to escape the quote in the
+original query. Same idea is applied for the user login below.
+
+[[./admin_cracked.png]]
+
+To login as alice, paste this on to the username field. Alice opens by default because she is the
+first user on the table
+#+begin_src SQL
+007' or TRUE; --   /
+#+end_src
+
+* Task 3: SQL Injection Attack on UPDATE Statement
+** Task 3.1: Modify salary
+
+Modifying salary by design is only available to the Admin. Here we are showcasing how any user to
+bypass it using SQL Injection. After logging in a user, use the edit button to edit your info. Then
+instead of adding information enter this into the first field which is nickname.
+
+To update the salary.
+#+begin_src SQL
+Alice', salary = 55000 WHERE name="Alice"; --  /
+#+end_src
+
+Here the query adds First part =Alice'= to the nickname variable. Together with that we also apply
+the salary change by using the =WHERE= clause and then commenting out the rest of the query using
+the previous strategy.
+** Task 3.2: Modify other people’ password.
+
+In this Task we are modifying other people's password as non-admin user. Assuming the passwords in
+the database are stored as SHA1 hash, we generate a new hash for the new password we decide.
+
+Find SHA1 hash of the password using openssl
+#+begin_src bash
+echo -n "password" | openssl sha1
+# echos 5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8
+#+end_src
+
+Now we can modify the password hash stored in the database using the following query. Again by
+selecting to edit your own information. Enter the following query on the nickname field.
+
+To update Ryan's password as Alice, to "password"
+#+begin_src SQL
+Alice, password = '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8'  WHERE name="Ryan"; --  /
+#+end_src
+
+Here =Alice,= part gets assigned to our on nickname in code. then we add another query using =,= and
+assign the new password hash with a =WHERE= clause when the name is /Ryan/. Then again we finish the
+query with the commenting strategy.
