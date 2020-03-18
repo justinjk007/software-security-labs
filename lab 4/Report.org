@@ -1,0 +1,63 @@
+#+OPTIONS: toc:nil num:nil
+#+TITLE: LAB 4 - REPORT
+#+AUTHOR: Justin Kaipada - 100590167
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [11pt,letterpaper]
+#+LATEX_HEADER: \usepackage[letterpaper,margin=1.3in]{geometry}
+#+LATEX_HEADER: \usepackage{plex-mono}
+#+LATEX_HEADER: \usepackage[sfdefault]{plex-sans}
+#+LATEX_HEADER: \linespread{1.5} % Change line spacing
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \usepackage{soul}
+#+LATEX_HEADER: \usepackage{helvet}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \setlength{\parindent}{0pt} % Change the paragraphs indent to 0, disabling it
+#+LATEX_HEADER: \usepackage{xcolor-solarized}
+#+LATEX_HEADER: \definecolor{foreground}{RGB}{184, 83, 83} % For verbatim
+#+LATEX_HEADER: \definecolor{background}{RGB}{255, 231, 231} % For verbatim
+#+LATEX_HEADER: \let\OldTexttt\texttt
+#+LATEX_HEADER: \renewcommand{\texttt}[1]{\OldTexttt{\footnotesize\colorbox{background}{\textcolor{foreground}{#1}}}}
+#+LATEX_HEADER: \newenvironment{helvetica}{\fontfamily{phv}\selectfont}{\par}
+#+LATEX_HEADER: \usepackage{hyperref} % Make the hyper-links prettier
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER: colorlinks=true,
+#+LATEX_HEADER: linkcolor=blue!70!white,
+#+LATEX_HEADER: urlcolor=blue!95!black
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \setlist[1]{itemsep=5pt}
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+#+LATEX_HEADER:  basicstyle=\scriptsize,          % the size of the fonts that are used for the code
+#+LATEX_HEADER:  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+#+LATEX_HEADER:  breaklines=true,                 % sets automatic line breaking
+#+LATEX_HEADER:  captionpos=b,                    % sets the caption-position to bottom
+#+LATEX_HEADER:  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+#+LATEX_HEADER:  firstnumber=1000,                % start line enumeration with line 1000
+#+LATEX_HEADER:  frame=single,	                  % adds a frame around the code
+#+LATEX_HEADER:  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+#+LATEX_HEADER:  keywordstyle=\color{blue},       % keyword style
+#+LATEX_HEADER:  language=bash,                   % the language of the code
+#+LATEX_HEADER:  morekeywords={ls,ping},          % if you want to add more keywords to the set
+#+LATEX_HEADER:  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+#+LATEX_HEADER:  numbersep=5pt,                   % how far the line-numbers are from the code
+#+LATEX_HEADER:  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+#+LATEX_HEADER:  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+#+LATEX_HEADER:  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+#+LATEX_HEADER:  showstringspaces=false,          % underline spaces within strings only
+#+LATEX_HEADER:  showtabs=false,                  % show tabs within strings adding particular underscores
+#+LATEX_HEADER:  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+#+LATEX_HEADER:  stringstyle=\color{black},     % string literal style
+#+LATEX_HEADER:  tabsize=2,	                  % sets default tabsize to 2 spaces
+#+LATEX_HEADER:  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+#+LATEX_HEADER: }
+
+#+begin_export latex
+\newpage % Go to the next page after title page
+#+end_export
+
+* Lab setup
+
+Omg setting up 3 vms took for ever.
+
+I will take the L
