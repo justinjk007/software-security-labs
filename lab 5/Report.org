@@ -1,5 +1,5 @@
 #+OPTIONS: toc:nil num:nil
-#+TITLE: LAB 4 - REPORT
+#+TITLE: LAB 5 - REPORT
 #+AUTHOR: Justin Kaipada - 100590167
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [11pt,letterpaper]
@@ -34,7 +34,7 @@
 #+LATEX_HEADER:  captionpos=b,                    % sets the caption-position to bottom
 #+LATEX_HEADER:  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
 #+LATEX_HEADER:  firstnumber=1000,                % start line enumeration with line 1000
-#+LATEX_HEADER:  frame=single,	                  % adds a frame around the code
+#+LATEX_HEADER:  frame=single,                    % adds a frame around the code
 #+LATEX_HEADER:  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
 #+LATEX_HEADER:  keywordstyle=\color{blue},       % keyword style
 #+LATEX_HEADER:  language=bash,                   % the language of the code
@@ -48,7 +48,7 @@
 #+LATEX_HEADER:  showtabs=false,                  % show tabs within strings adding particular underscores
 #+LATEX_HEADER:  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
 #+LATEX_HEADER:  stringstyle=\color{black},     % string literal style
-#+LATEX_HEADER:  tabsize=2,	                  % sets default tabsize to 2 spaces
+#+LATEX_HEADER:  tabsize=2,                       % sets default tabsize to 2 spaces
 #+LATEX_HEADER:  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 #+LATEX_HEADER: }
 
@@ -58,4 +58,31 @@
 
 * Lab setup
 
-I can't even seem to get 3 vms up and running on this laptop. This is huge amount of work for 3% marks you guys, and now we have to do this alone at home ?
+For the lab setup made sure to turn of the address space randomization
+#+begin_src bash
+sudo sysctl -w kernel.randomize_va_space=0
+#+end_src
+
+Compiled the shell code with the =execstack= option like so. Files used are the files attached on
+blackboard
+#+begin_src bash
+gcc -z execstack -o call_shellcode call_shellcode.c
+#+end_src
+
+#+attr_latex: :width 440px
+[[./img/shellcode_compile.png]]
+
+Compiled the vulnerable program as root with =execstack= and also turned of GCCs stack protector
+option with =no-stack-protector=.
+#+begin_src bash
+sudo gcc -o stack -z execstack -fno-stack-protector stack.c
+sudo chmod 4755 stack
+#+end_src
+
+#+attr_latex: :width 440px
+[[./img/stack_cmopile.png]]
+
+* Task 1: Exploiting the Vulnerability
+* Task 2: Address Randomization
+* Task 3: Stack Guard
+* Task 4: Non-executable Stack
