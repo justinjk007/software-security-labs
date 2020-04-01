@@ -1,9 +1,9 @@
-#+OPTIONS: toc:nil num:nil
+#+OPTIONS: toc:t num:t
 #+TITLE: LAB 5 - REPORT
 #+AUTHOR: Justin Kaipada - 100590167
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [11pt,letterpaper]
-#+LATEX_HEADER: \usepackage[letterpaper,margin=1.3in]{geometry}
+#+LATEX_HEADER: \usepackage[letterpaper,margin=1in]{geometry}
 #+LATEX_HEADER: \usepackage{plex-mono}
 #+LATEX_HEADER: \usepackage[sfdefault]{plex-sans}
 #+LATEX_HEADER: \linespread{1.5} % Change line spacing
@@ -12,6 +12,7 @@
 #+LATEX_HEADER: \usepackage{helvet}
 #+LATEX_HEADER: \usepackage{listings}
 #+LATEX_HEADER: \setlength{\parindent}{0pt} % Change the paragraphs indent to 0, disabling it
+#+LATEX_HEADER: \renewcommand\thesection{} % number the headers for toc but hide them
 #+LATEX_HEADER: \usepackage{xcolor-solarized}
 #+LATEX_HEADER: \definecolor{foreground}{RGB}{184, 83, 83} % For verbatim
 #+LATEX_HEADER: \definecolor{background}{RGB}{255, 231, 231} % For verbatim
@@ -84,7 +85,7 @@
 
 * Lab setup
 
-For the lab setup made sure to turn of the address space randomization
+For the lab setup made sure to turn off the address space randomization
 #+begin_src bash
 sudo sysctl -w kernel.randomize_va_space=0
 #+end_src
@@ -162,5 +163,55 @@ We can try running the program in a loop as follows
 sh -c "while [ 1 ]; do ./stack; done;"
 #+end_src
 
+Even after waiting for many executions we can see that the probability getting the correct address
+to break the security is really low, so the malicious code fails to do its job again and again
+
+#+attr_latex: :width 440px
+[[./img/task_2.png]]
+
+Keep on running for a long time will break the chain however to give us access to the root prompt
+#+attr_latex: :width 440px
+[[./img/task_2_dumped_at_last.png]]
+
 * Task 3: Stack Guard
+
+For this task we turn off the address space randomization again like this
+#+begin_src bash
+sudo sysctl -w kernel.randomize_va_space=0
+#+end_src
+
+Then we compile the stack program again this time without stack protector option and then set the correct permissions on the executable again
+#+begin_src bash
+sudo gcc -o stack -z execstack stack.c
+sudo chmod 4755 stack
+./stack
+#+end_src
+
+Immediately upon execution the system detects the stack smashing attempt, stops and prints out the
+debug info such as memory map and stack trace of the program.
+
+#+attr_latex: :width 440px
+[[./img/task_3.png]]
+
 * Task 4: Non-executable Stack
+
+For this task after making sure the address randomization is off we recompile the stack program with
+=noexecstack= option. We can recompile like this
+#+begin_src bash
+gcc -o stack -fno-stack-protector -z noexecstack stack.c
+sudo chmod 4755 stack
+./stack				# execute
+#+end_src
+
+#+attr_latex: :width 440px
+[[./img/task_4.png]]
+
+As you can see the program was halted immediately and exits with a segmentation fault!. This is
+because the =noexecstack= stops any shell code placed on the stack to be executed, but since the
+system can't handle the overflow it will still kill the program hence the segmentation fault.
+
+* References
+
+- http://www.cs.wright.edu/people/faculty/tkprasad/courses/cs781/alephOne.html
+- http://www-inst.eecs.berkeley.edu/~cs161/fa08/papers/stack_smashing.pdf
+- https://www.informit.com/articles/article.aspx?p=430402&seqNum=5
